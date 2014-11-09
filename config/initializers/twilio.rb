@@ -1,0 +1,1 @@
+Twilio::Config.setup :account_sid  => 'ACc923e9140096eb111ad3aa52eb0a47b3', :auth_token   => '7e7e96df35a8540f5bfa315ef94195dc'

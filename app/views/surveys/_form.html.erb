@@ -1,0 +1,60 @@
+<%= form_for(@survey) do |f| %>
+  <% if @survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
+
+      <ul>
+      <% @survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<ul id="myTab" class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Single Recipient</a></li>
+      <li role="presentation" class=""><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Multiple Recipients</a></li>
+    </ul>
+
+    <div id="myTabContent" class="tab-content">
+      <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="single-tab">
+
+      <div class="panel panel-default">
+  <div class="panel-body">
+  
+        <div class="field">
+          <%= f.label :name, "Name (optional)" %><br>
+          <%= f.text_field :name %>
+        </div>
+        <div class="field">
+          <%= f.label :number, "Phone Number" %><br>
+          <%= f.text_field :number %>
+        </div>
+
+</div>
+</div>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="multi-tab">
+
+      <div class="panel panel-default">
+  <div class="panel-body">
+
+        <div class="field">
+          <%= f.label :multi, "Phone Numbers:" %><br>
+          <%= f.text_area :multi, :rows => 10, :cols => 80 %>
+          <p class="help-block">One number per line. Add a comma to include a name: 800-555-1212,John Doe</p>
+        </div>
+</div>
+</div>
+
+      </div>
+    </div>
+
+
+
+
+  <div class="actions">
+  <p></p>
+    <%= f.submit "Conduct Survey", :class => "btn btn-primary" %>
+  </div>
+<% end %>
