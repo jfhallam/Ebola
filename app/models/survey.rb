@@ -116,28 +116,28 @@ def	complete_survey
 		self.exposure_risk = "Unlikely"
 		if score.between?(0,4)
 			self.risk_level = "Very Low"
-		elsif score.between?(5,7)
+		elsif score.between?(5,100)
 			self.risk_level = "Low"
 		end			
 	elsif risk_score.between?(2,2)
 		self.exposure_risk = "Unlikely Direct"
 		if score.between?(0,0)
 			self.risk_level = "Very Low"
-		elsif score.between?(1,14)
+		elsif score.between?(1,100)
 			self.risk_level = "Low"
 		end					
-	elsif risk_score.between?(3,4)
+	elsif risk_score.between?(3,5)
 		self.exposure_risk = "Likely Direct"	
 		if symptom_score.between?(0,4)
 			self.risk_level = "Medium"
-		elsif symptom_score.between?(5,7)
+		elsif symptom_score.between?(5,100)
 			self.risk_level = "Extreme"
 		end			
-	elsif risk_score.between?(7,21)
+	elsif risk_score.between?(6,21)
 		self.exposure_risk = "Direct"	
 		if symptom_score.between?(0,4)
 			self.risk_level = "High"
-		elsif symptom_score.between?(5,7)
+		elsif symptom_score.between?(5,100)
 			self.risk_level = "Extreme"
 		end			
 	end
