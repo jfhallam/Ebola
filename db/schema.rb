@@ -28,7 +28,11 @@ ActiveRecord::Schema.define(version: 20141108233745) do
     t.boolean  "q8"
     t.boolean  "q9"
     t.datetime "completed_at"
+    t.integer  "risk_score"
+    t.integer  "symptom_score"
     t.integer  "score"
+    t.string   "risk_level"
+    t.string   "exposure_risk"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

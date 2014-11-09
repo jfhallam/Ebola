@@ -8,6 +8,19 @@ Survey Results
 <% end %>
 </h2>
 
+
+
+<%# link_to 'Edit', edit_survey_path(@survey) %>
+    <%= link_to surveys_path, :class => "btn btn-default" do %>
+      <span class="glyphicon glyphicon-arrow-left"></span> Back
+    <% end %>
+
+<%= link_to @survey, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" do %>
+<span class="glyphicon glyphicon-trash"></span>  Delete Survey
+<% end %>
+
+<p></p>
+
 <table class="table table-striped">
 <!--
   <thead>
@@ -22,19 +35,48 @@ Survey Results
   <tbody>
   <% if @survey.completed_at %>
   <tr>
-  	<th>Score</th>
+  	<th><h4>Summary</h4></th>
+  	<td></td>
+  </tr>
+
+  <tr>
+  	<th>Risk Level</th>
+  	<td><%= @survey.risk_level %></td>
+  </tr>
+  <tr>
+  	<th>Exposure Risk</th>
+  	<td><%= @survey.exposure_risk %></td>
+  </tr>
+
+  <tr>
+  	<th>Symptom Score</th>
+  	<td><%= @survey.symptom_score %></td>
+  </tr>
+  <tr>
+  	<th>Risk Score</th>
+  	<td><%= @survey.risk_score %></td>
+  </tr>
+  <tr>
+  	<th>Total Score</th>
   	<td><%= @survey.score %></td>
   </tr>
   <tr>
-  	<th>Completed</th>
-  	<td><%= @survey.completed_at %></td>
+  	<th>Completed at</th>
+  	<td><%= @survey.completed_at.to_s(:db) %></td>
   </tr>
   <% end %>
-  <% Survey.questions.each_with_index do |q,i| %>
+  <tr>
+  	<th><h4>Answers</h4></th>
+  	<td></td>
+  </tr>
 
+  <% Survey.questions.each_with_index do |q,i| %>
   <tr>
   	<th><%= q %></th>
-  	<td><%= @survey.send("q#{i}") %></td>
+  	<td>
+  	<%= "Yes" if @survey.send("q#{i}") == true %>
+  	<%= "No" if @survey.send("q#{i}") == false %>
+  	</td>
   </tr>
   <% end %>
 
@@ -43,7 +85,4 @@ Survey Results
 
 
 
-<%# link_to 'Edit', edit_survey_path(@survey) %>
-<%= link_to 'Back', surveys_path %>
-|
-<%= link_to 'Delete Survey', @survey, method: :delete, data: { confirm: 'Are you sure?' } %>
+
