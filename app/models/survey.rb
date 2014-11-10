@@ -7,16 +7,16 @@ def set_parsed_number
 end
 
 def self.questions
-	["Do you live in a high risk area?",
-   "Do you know someone who has been to the hospital for fever?",
-	 "Do you live with someone who has fallen ill in the last 21 days?",
-   "Have you touched someone who is sick?",
-   "Have you touched a dead body?",
-   "Have you performed burial rights?",
-   "Have you been exposed to blood, vomit, feces, mucus?",
+	["Are you living in an area where many people have died from ebola?",
+   "Do you know someone who has been sick for many days?",
+	 "Do you live with someone who has fallen ill in the last 3 weeks?",
+   "Have you have you taken care of someone who is sick?",
+   "Have you touched a dead body in the last 3 weeks?",
+   "Have you been involved in preparing a body for burial?",
+   "Have you been exposed to blood, vomit, feces, spit?",
    "Do you have a fever? (higher than normal body temperature) do you feel hotter than normal?",
-   "Have you vomited, had diahhrea or unexplained bruising or bleeding in the last 21 days?",
-   "Have you had a severe headache, muscle pain, fatigue, or stomach pains in the last 21 days?"]
+   "Have you vomited, had diahhrea or unusual bruising or bleeding in the last 3 weeks?",
+   "Have you had a severe headache, body pain, fatigue, or stomach pains in the last 3 weeks?"]
 end
 
 after_create :launch_survey
@@ -160,19 +160,21 @@ end
 
 def send_results
 	if self.risk_level == "Very Low"
-		msg = "Avoid sick people, drink purified water. Learn to purify water..."
+		msg = "Wash hands with clean water many times a day - Avoid people who you think are sick, drink clean water"
 	elsif self.risk_level == "Low"
-		msg = "Wash hands, avoid sick people, drink clean water. Find a Doctor near you..."
+		msg = "Wash hands with clean water many times a day - Avoid people who you think are sick, Go to your local Health Clinic or health center"
 	elsif self.risk_level == "Medium"
-		msg = "avoid contact with others. Find a Doctor Near You..."
+		msg = "Wash hands with clean water many times a day - Avoid people who you think are sick - Drink a lot of ORS - Stay away from other people"
 	elsif self.risk_level == "High"
-		msg = "Isolate yourself from others - We have notified the CDC.  Learn more..."
+		msg = "Wash hands with clean water many times a day - Do not mix with other people - Drink a lof of ORS - Call 117"
 	elsif self.risk_level == "Extreme"
-		msg = "Isolate yourself, we have notified CDC. Learn More..."
+		msg = "Wash hands with clean water many times a day - Do not Mix with other people - Drink a lot of ORS - Call 117"
 	end
 
 	Twilio::SMS.create :to => self.number, :from => '+17209032094', :body => "Survey complete. Your risk level is #{self.risk_level.upcase}. #{msg}"
-	Twilio::SMS.create :to => self.number, :from => '+17209032094', :body => "Ebola Tips: 1) Wash hands with soap and clean wate, 2) Avoid physical contact with others."
+	Twilio::SMS.create :to => self.number, :from => '+17209032094', :body => "Ebola Tips: 1) Wash hands with soap and clean water many times a day, 2) Disinfect areas with diluted Chlorine 3) Greet others with 1 hand over your heart."
+	Twilio::SMS.create :to => self.number, :from => '+17209032094', :body => "4) Do not Share Utensils 5) Wear gloves and protective clothing when preparing a body for burial 6) Avoid touching, or hugging dead bodies."
+	Twilio::SMS.create :to => self.number, :from => '+17209032094', :body => "7) If you feel sick, do not get on public transportation, 8) if you feel very sick call 117 - Stay in 1 room of the house."
 end
 
 def self.create_multiple(params)
